@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\DataTransferObjects\ProductDto;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,8 +12,13 @@ class ProductController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function fake()
+    // singleton pattern
+    public function create(ProductDto $dto) :int
     {
-        dd(22);
+        $product = Product::firstOrCreate(['name' => $dto->name], ['name' => $dto->name, 'user_id' => $dto->user_id]);
+        return $product->id;
     }
+
+
+
 }
