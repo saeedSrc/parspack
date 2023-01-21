@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,9 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('/register', [AuthController::class, 'registration'])->name('registration');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+});
+
+Route::get('/fake', [ProductController::class,'fake']);
