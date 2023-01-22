@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // binding CreateProductInterface by CreateProduct which implements its method with sql database
         $this->app->bind(CreateProductInterface::class, CreateProduct::class);
     }
 
