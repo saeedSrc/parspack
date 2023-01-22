@@ -23,7 +23,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(CommentController::class)->prefix('/comment')->group(function () {
-    Route::post('', 'insert');
+    Route::post('', 'insert')->middleware('auth:api');
 });
 
 Route::controller(ProductController::class)->prefix('/product')->group(function () {

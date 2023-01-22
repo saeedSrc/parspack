@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     public function insert(CommentRequest $request)
     {
         // we first should get product_id with product_name
@@ -39,11 +34,6 @@ class CommentController extends Controller
             'status' => 'success',
             'comment' => $comment,
         ]);
-    }
-
-    public function create($request)
-    {
-
     }
 
 }

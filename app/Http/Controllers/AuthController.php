@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['register', 'login']]);
-    }
-
     public function register(Register $request){
 
         $user = User::create([
@@ -56,10 +51,4 @@ class AuthController extends Controller
         ]);
 
     }
-
-    public function username()
-    {
-        return 'usesrname';
-    }
-
 }
