@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTransferObjects\ProductDto;
+use App\Events\NewComment;
 use App\Http\Requests\Comment as CommentRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -15,33 +16,34 @@ class CommentController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function create(CommentRequest $request)
+    public function insert(CommentRequest $request)
     {
+        // we first should get product_id with product_name
         $pName = $request->get('p_name');
         $product = ['name' => $pName, 'user_id' => Auth::id()];
+
+        // create method either create a new product or return product that hast already been in database
         $result = (new ProductController())->create(ProductDto::fromArray($product));
+
+        // creating comment
         $comment = new Comment();
         $comment->comment = $request->comment;
         $comment->user_id = Auth::id();
         $comment->product_id = $result->id;
         $comment->save();
 
-        $fileName = "/opt/myprogram/product_comments";
-        $output =  shell_exec("awk -F':' '$1 ==\"" . $pName . "\"{print $2}' " . $fileName);
-        $oparray = preg_split('/\s+/', trim($output));
-        $lastValue = $oparray[count($oparray) - 1];
-
-        if ($lastValue == null ) {
-        shell_exec("echo " . $pName . ": " . 1 . " >> " . $fileName);
-        } else {
-            shell_exec("sudo -S sed -i.bkp \"\/" . $pName . "\"\/d  $fileName");
-            shell_exec("echo " . $pName . ": " . $lastValue + 1 . " >> " . $fileName);
-        }
+        $Event = ['p_name' => $pName];
+        event(NewComment::broadcast($Event));
 
         return response()->json([
             'status' => 'success',
             'comment' => $comment,
         ]);
+    }
+
+    public function create($request)
+    {
+
     }
 
 }

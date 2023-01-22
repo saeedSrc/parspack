@@ -23,7 +23,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(CommentController::class)->prefix('/comment')->group(function () {
-    Route::post('', 'create');
+    Route::post('', 'insert');
 });
 
 Route::controller(ProductController::class)->prefix('/product')->group(function () {
