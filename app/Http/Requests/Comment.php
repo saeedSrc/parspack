@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CommentLimitter;
+use App\Rules\IranianPhoneNumberValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Comment extends FormRequest
@@ -25,7 +27,8 @@ class Comment extends FormRequest
     {
         return [
             'comment' => 'required|min:3|max:1000',
-            'p_name' => 'required|string',
+            'p_name' => ['required', 'string', new CommentLimitter()],
         ];
     }
+
 }
