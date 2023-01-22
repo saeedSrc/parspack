@@ -12,4 +12,9 @@ class Product extends Model
         'name',
         'user_id',
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

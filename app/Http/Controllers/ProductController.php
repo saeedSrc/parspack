@@ -5,13 +5,15 @@ use App\DataTransferObjects\ProductDto;
 use App\DataTransferObjects\ResultDto;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\Product as ProductRequest;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
+
+    public function all(ProductRequest $request) {
+          return Product::with('comments')->get();
     }
+
 
     // singleton pattern
     public function create(ProductDto $dto) :ResultDto
@@ -25,7 +27,5 @@ class ProductController extends Controller
         $result = ['id' => $product->id, 'exist' => $exist];
         return ResultDto::fromArray($result);
     }
-
-
 
 }

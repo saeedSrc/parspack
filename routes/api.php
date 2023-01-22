@@ -26,5 +26,8 @@ Route::controller(CommentController::class)->prefix('/comment')->group(function 
     Route::post('', 'create');
 });
 
-Route::get('/fake', [ProductController::class,'fake']);
+Route::controller(ProductController::class)->prefix('/product')->group(function () {
+    Route::get('all', 'all')->middleware('auth:api');
+});
+
 
