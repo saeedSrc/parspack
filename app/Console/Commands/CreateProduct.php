@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Actions\CreateProductInterface;
 use App\DataTransferObjects\ProductDto;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class CreateProduct extends Command
 {
+
+    public function __construct(private CreateProductInterface $product)
+    {
+        parent::__construct();
+    }
     /**
      * The name and signature of the console command.
      *
@@ -33,7 +39,10 @@ class CreateProduct extends Command
     {
         $pName = $this->argument('product_name');
         $product = ['name' => $pName, 'user_id' => 79];
-        $result = (new ProductController())->create(ProductDto::fromArray($product));
+
+        // calling create method through product interface (adapter pattern => structural)
+        $result = $this->product->create(ProductDto::fromArray($product));
+
         if ($result->exist) {
             error_log('Product has already exist.');
         } else {

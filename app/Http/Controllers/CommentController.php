@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateProductInterface;
 use App\DataTransferObjects\ProductDto;
 use App\Events\NewComment;
 use App\Http\Requests\Comment as CommentRequest;
@@ -11,14 +12,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function __construct(
+        private CreateProductInterface $product,
+    ) {
+    }
+
     public function insert(CommentRequest $request)
     {
         // we first should get product_id with product_name
         $pName = $request->get('p_name');
         $product = ['name' => $pName, 'user_id' => Auth::id()];
 
-        // create method either create a new product or return product that hast already been in database
-        $result = (new ProductController())->create(ProductDto::fromArray($product));
+        // calling create method through product interface (adapter pattern => structural)
+        // create method either creates a new product or return product that hast already been in database.
+        $result = $this->product->create(ProductDto::fromArray($product));
 
         // creating comment
         $comment = new Comment();
