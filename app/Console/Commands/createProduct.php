@@ -33,7 +33,11 @@ class createProduct extends Command
     {
         $pName = $this->argument('product_name');
         $product = ['name' => $pName, 'user_id' => 79];
-        (new ProductController())->create(ProductDto::fromArray($product));
-        error_log('Product created with name: ' . $pName);
+        $result = (new ProductController())->create(ProductDto::fromArray($product));
+        if ($result->exist) {
+            error_log('Product has already exist: ' . $pName);
+        } else {
+            error_log('Product created with name: ' . $pName);
+        }
     }
 }

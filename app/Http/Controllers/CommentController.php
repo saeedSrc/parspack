@@ -18,11 +18,11 @@ class CommentController extends Controller
     public function create(CommentRequest $request)
     {
         $product = ['name' => $request->get('p_name'), 'user_id' => Auth::id()];
-        $pID = (new ProductController())->create(ProductDto::fromArray($product));
+        $result = (new ProductController())->create(ProductDto::fromArray($product));
         $comment = new Comment();
         $comment->comment = $request->comment;
         $comment->user_id = Auth::id();
-        $comment->product_id = $pID;
+        $comment->product_id = $result->id;
         $comment->save();
         return response()->json([
             'status' => 'success',
