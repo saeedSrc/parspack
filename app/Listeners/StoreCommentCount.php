@@ -40,9 +40,8 @@ class StoreCommentCount
         if ($lastValue == null ) {
             shell_exec("echo " . $pName . ": " . 1 . " >> " . $fileName);
         } else {  // if product is not new, it must be updated into file.
-
             //  first the line with that product should be removed.
-            shell_exec("sudo -S sed -i.bkp \"\/" . $pName . "\"\/d  $fileName");
+            shell_exec("echo amiralimac | sudo -S sed -i.bkp \"\/" . $pName . "\"\/d  $fileName");
             // then new line should be inserted with increased comment count by one.
             shell_exec("echo " . $pName . ": " . $lastValue + 1 . " >> " . $fileName);
         }
