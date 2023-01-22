@@ -32,8 +32,8 @@ class CommentController extends Controller
         $comment->product_id = $result->id;
         $comment->save();
 
-        $Event = ['p_name' => $pName];
-        event(NewComment::broadcast($Event));
+        // create new event for inserting/updating  "product: comment_count" file
+        event(NewComment::broadcast($pName));
 
         return response()->json([
             'status' => 'success',

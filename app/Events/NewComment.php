@@ -14,14 +14,15 @@ class NewComment
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $pname;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $pname)
     {
-        //
+      $this->pname = $pname;
     }
 
     /**

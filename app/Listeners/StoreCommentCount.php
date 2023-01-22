@@ -26,7 +26,8 @@ class StoreCommentCount
      */
     public function handle(NewComment $event)
     {
-        $pName = $event->p_name;
+
+        $pName = $event->pname;
         $fileName = "/opt/myprogram/product_comments";
         $output =  shell_exec("awk -F':' '$1 ==\"" . $pName . "\"{print $2}' " . $fileName);
         $oparray = preg_split('/\s+/', trim($output));
