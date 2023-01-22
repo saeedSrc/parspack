@@ -8,7 +8,7 @@ use App\Models\Product;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class createProduct extends Command
+class CreateProduct extends Command
 {
     /**
      * The name and signature of the console command.
@@ -35,7 +35,7 @@ class createProduct extends Command
         $product = ['name' => $pName, 'user_id' => 79];
         $result = (new ProductController())->create(ProductDto::fromArray($product));
         if ($result->exist) {
-            error_log('Product has already exist: ' . $pName);
+            error_log('Product has already exist.');
         } else {
             error_log('Product created with name: ' . $pName);
         }

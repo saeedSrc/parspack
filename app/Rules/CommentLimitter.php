@@ -34,7 +34,7 @@ class CommentLimitter implements Rule
         }
         $pID = $product->id;
         $comments = Comment::where(['product_id' => $pID, 'user_id' => Auth::id()])->get();
-        (count($comments) > 100000) ? $result = false : $result = true;
+        (count($comments) > config('custom.comment_limit_count')) ? $result = false : $result = true;
         return $result;
     }
 

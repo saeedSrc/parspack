@@ -16,7 +16,7 @@ class ProductController extends Controller
 
 
     // singleton pattern
-    public function create(ProductDto $dto) :ResultDto
+    public function create(ProductDto $dto) :ResultDto  // Result Data Transfer object is a general object that has id of an instance plus whether if it exists or not.
     {
         $product = Product::where('name', '=', $dto->name)->first();
         $exist = true;
