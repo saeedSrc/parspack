@@ -17,4 +17,10 @@ class Product implements ProductInterface {
         $result = ['id' => $product->id, 'exist' => $exist];
         return ResultDto::fromArray($result);
     }
+
+    // implement get all products by sql
+    public function getAll(): array
+    {
+        return array(ProductModel::with('comments')->get());
+    }
 }
