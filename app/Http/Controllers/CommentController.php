@@ -7,10 +7,12 @@ use App\Actions\ProductInterface;
 use App\DataTransferObjects\CommentDto;
 use App\DataTransferObjects\ProductDto;
 use App\Events\NewComment;
+use App\Helpers\Helpers;
 use App\Http\Requests\Comment as CommentRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function PHPUnit\Framework\arrayHasKey;
 
 class CommentController extends Controller
 {
@@ -37,10 +39,8 @@ class CommentController extends Controller
         // create new event for inserting/updating  "product: comment_count" file
         event(NewComment::broadcast($pName));
 
-        return response()->json([
-            'status' => 'success',
-            'comment' => $comment_result,
-        ]);
+        // call helper static method
+        return Helpers::SuccessResponse($comment_result);
     }
 
 }

@@ -5,6 +5,7 @@ use App\Actions\CommentInterface;
 use App\Actions\ProductInterface;
 use App\DataTransferObjects\ProductDto;
 use App\DataTransferObjects\ResultDto;
+use App\Helpers\Helpers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product as ProductRequest;
@@ -18,6 +19,7 @@ class ProductController extends Controller
     }
 
     public function all() {
-        return $this->product->getAll();
+        $products = $this->product->getAll();
+       return Helpers::SuccessResponse($products);
     }
 }
