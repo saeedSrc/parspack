@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateCommentInterface;
 use App\Actions\CreateProductInterface;
+use App\DataTransferObjects\CommentDto;
 use App\DataTransferObjects\ProductDto;
 use App\Events\NewComment;
 use App\Http\Requests\Comment as CommentRequest;
@@ -14,6 +16,7 @@ class CommentController extends Controller
 {
     public function __construct(
         private CreateProductInterface $product,
+        private CreateCommentInterface $comment,
     ) {
     }
 
@@ -25,21 +28,18 @@ class CommentController extends Controller
 
         // calling create method through product interface (adapter pattern => structural)
         // create method either creates a new product or return product that hast already been in database.
-        $result = $this->product->create(ProductDto::fromArray($product));
+        $product_result = $this->product->create(ProductDto::fromArray($product));
 
         // creating comment
-        $comment = new Comment();
-        $comment->comment = $request->comment;
-        $comment->user_id = Auth::id();
-        $comment->product_id = $result->id;
-        $comment->save();
+        $comment = ['comment' => $request->comment, 'user_id' => Auth::id(), 'product_id' => $product_result->id];
+        $comment_result = $this->comment->create(CommentDto::fromArray($comment));
 
         // create new event for inserting/updating  "product: comment_count" file
         event(NewComment::broadcast($pName));
 
         return response()->json([
             'status' => 'success',
-            'comment' => $comment,
+            'comment' => $comment_result,
         ]);
     }
 

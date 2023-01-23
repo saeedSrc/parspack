@@ -38,7 +38,7 @@ class CommentLimitterTest extends TestCase
                 'product',
                 true
             ],
-            'should not work' => [
+            'should not work' => [// because we already have 2 "product3"
                 'product3',
                 false
             ],
