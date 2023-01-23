@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 
-use App\Actions\CreateComment;
-use App\Actions\CreateCommentInterface;
-use App\Actions\CreateProduct;
-use App\Actions\CreateProductInterface;
+use App\Actions\Comment;
+use App\Actions\CommentInterface;
+use App\Actions\Product;
+use App\Actions\ProductInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,11 +18,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // binding CreateProductInterface by CreateProduct which implements its method with sql database
-        $this->app->bind(CreateProductInterface::class, CreateProduct::class);
+        // binding ProductInterface by Product which implements its method with sql database
+        $this->app->bind(ProductInterface::class, Product::class);
 
-        // binding CreateCommentInterface by CreateComment which implements its method with sql database
-        $this->app->bind(CreateCommentInterface::class, CreateComment::class);
+        // binding CommentInterface by Comment which implements its method with sql database
+        $this->app->bind(CommentInterface::class, Comment::class);
     }
 
     /**

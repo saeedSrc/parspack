@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateCommentInterface;
-use App\Actions\CreateProductInterface;
+use App\Actions\CommentInterface;
+use App\Actions\ProductInterface;
 use App\DataTransferObjects\CommentDto;
 use App\DataTransferObjects\ProductDto;
 use App\Events\NewComment;
@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     public function __construct(
-        private CreateProductInterface $product,
-        private CreateCommentInterface $comment,
+        private ProductInterface $product,
+        private CommentInterface $comment,
     ) {
     }
 

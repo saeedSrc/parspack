@@ -3,7 +3,7 @@ namespace App\Actions;
 use App\DataTransferObjects\CommentDto;
 use App\DataTransferObjects\ResultDto;
 
-interface CreateCommentInterface
+interface CommentInterface
 {
     public function create(CommentDto $dto):ResultDto;
 }

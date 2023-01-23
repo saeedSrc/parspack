@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\CreateProductInterface;
+use App\Actions\ProductInterface;
 use App\DataTransferObjects\ProductDto;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class CreateProduct extends Command
 {
 
-    public function __construct(private CreateProductInterface $product)
+    public function __construct(private ProductInterface $product)
     {
         parent::__construct();
     }

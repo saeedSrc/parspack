@@ -3,15 +3,15 @@ namespace App\Actions;
 use App\DataTransferObjects\CommentDto;
 use App\DataTransferObjects\ProductDto;
 use App\DataTransferObjects\ResultDto;
-use App\Models\Comment;
+use App\Models\Comment as CommentModel;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
-class CreateComment implements CreateCommentInterface {
+class Comment implements CommentInterface {
 
     public function create(CommentDto $dto):ResultDto
     {
-        $comment = new Comment();
+        $comment = new CommentModel();
         $comment->comment = $dto->comment;
         $comment->user_id = $dto->user_id;
         $comment->product_id = $dto->product_id;
