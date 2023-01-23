@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Comment implements CommentInterface {
 
-    public function create(CommentDto $dto):array
+    public function create(CommentDto $dto):CommentModel
     {
         $comment = new CommentModel();
         $comment->comment = $dto->comment;
@@ -17,6 +17,7 @@ class Comment implements CommentInterface {
         $comment->product_id = $dto->product_id;
         $comment->save();
         $result = ['id' => $comment->id, 'exist' => false];
+        return $comment;
         return array(ResultDto::fromArray($result));
     }
 }

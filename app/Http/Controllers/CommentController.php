@@ -40,7 +40,7 @@ class CommentController extends Controller
         event(NewComment::broadcast($pName));
 
         // call helper static method
-        return Helpers::SuccessResponse($comment_result);
+        return Helpers::SuccessResponse(array($comment_result));
     }
 
 }

@@ -5,5 +5,5 @@ use App\DataTransferObjects\ResultDto;
 
 interface CommentInterface
 {
-    public function create(CommentDto $dto):array;
+    public function create(CommentDto $dto):\App\Models\Comment;
 }
